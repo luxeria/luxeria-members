@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+\usepackage[landscape,margin=5mm,top=1cm,includefoot]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+\usepackage{ngerman}
+
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabu}
+\usepackage{longtable}
+
+\usepackage[hidelinks]{hyperref}
+
+<!--(set_escape)-->
+    LaTeX
+<!--(end)-->
+
+\begin{document}
+\begin{center}{
+\LARGE Luxeria Vereinsmitglieder per \today}
+\end{center}
+
+\def\tabularxcolumn#1{m{#1}}
+\setlength{\tabcolsep}{2mm}
+\begin{longtabu} to \linewidth {
+    |
+    m{2mm}  % id
+    m{15mm} % photo
+    m{20mm} % lastname
+    m{28mm} % firstname
+    |
+    m{32mm} % address
+    m{34mm} % city
+    |
+    m{18mm} % birthday
+    |
+    m{26mm} % phone
+    |
+    m{48mm} % email
+    |
+    m{23mm} % status
+    |
+}
+\hline
+\rowfont\bfseries
+Nr. & \centering Photo & Nachname & Vorname & Adresse & PLZ Ort &
+Geburtstag & Telefon & E-Mail & Status \\
+\hline
+\endhead
+<!--(for member in members)-->
+    @!member['memberid']!@
+    &
+    \includegraphics[width=1.5cm,height=2cm,keepaspectratio=true]
+                    {photos/photo@!member['memberid']!@.jpg}
+    &
+    @!member['lastname']!@
+    &
+    @!member['firstname']!@ \allowbreak
+    <!--(if member['nickname'])-->
+        (@!member['nickname']!@)
+    <!--(end)-->
+    &
+    $!setvar("last_address", "len(member['address'])-1")!$
+    <!--(for i, address in enumerate(member['address']))-->
+        @!address['address']!@
+        <!--(if i<last_address)-->
+            \newline
+        <!--(end)-->
+    <!--(end)-->
+    &
+    <!--(for i, address in enumerate(member['address']))-->
+        @!address['zipcode']!@  @!address['city']!@
+        <!--(if i<last_address)-->
+            \newline
+        <!--(end)-->
+    <!--(end)-->
+    &
+    \centering @!default("member['birthday']", "")!@
+    &
+    $!setvar("last_phone", "len(member['phone'])-1")!$
+    <!--(for i, phone in enumerate(member['phone']))-->
+            @!phone['phonenr']!@  @!phone['type']!@ <!--(if i<last_phone)-->\newline<!--(end)-->
+    <!--(end)-->
+    &
+    $!setvar("last_item", "len(member['email'])+len(member['website'])-1")!$
+    <!--(for i, item in enumerate(member['email']+member['website']))-->
+            <!--(if 'mail' in item)-->
+                \href{mailto:@!item['mail']!@}{@!item['mail']!@}
+            <!--(elif 'website' in item)-->
+                \url{@!item['website']!@}
+            <!--(end)-->
+            <!--(if i<last_item)-->
+                \newline
+            <!--(end)-->
+    <!--(end)-->
+    &
+    @!member['status']!@
+    \centering
+    <!--(if member['function'])-->
+        \linebreak (@!member['function']!@)
+    <!--(end)-->
+    \\ \hline
+<!--(end)-->
+\end{longtabu}
+\end{document}

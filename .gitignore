@@ -1,0 +1,23 @@
+## Generated files
+/*.db
+/*.csv
+/*.json
+/*.tex
+/*.dvi
+/*.pdf
+
+## Member data
+/photos/
+/members.sql
+
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+
+## Backup files
+*~
