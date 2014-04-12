@@ -21,3 +21,7 @@
 
 ## Backup files
 *~
+
+# Byte-compiled Python
+__pycache__/
+*.py[cod]
