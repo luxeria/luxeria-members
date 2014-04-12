@@ -19,4 +19,4 @@ Replace `members.sql` and `photos/photo*.jpg` to use a different data set.
  - Python 3.x for exporting the data as JSON and generating TeX
  - [pyratemp](http://www.simple-is-better.org/template/pyratemp.html) for
    dynamic document generation (included)
- - TexLive for compiling the generated TeX into PDF
+ - TexLive and Ghostscript for compiling the generated TeX into PDF

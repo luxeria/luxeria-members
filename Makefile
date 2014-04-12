@@ -27,6 +27,9 @@ $(TEX): $(JSON)
 pdf: $(PDF)
 $(PDF): $(TEX)
 	pdflatex $(TEX)
+	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer \
+		-dNOPAUSE -dQUIET -dBATCH -sOutputFile=compressed.pdf $(PDF)
+	mv compressed.pdf $(PDF)
 
 clean:
 	rm -f $(ALL)
