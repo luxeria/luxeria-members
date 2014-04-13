@@ -33,4 +33,5 @@ $(PDF): $(TEX)
 
 clean:
 	rm -f $(ALL)
+	rm -f compressed.pdf
 	rm -f *.toc *.aux *.log *.out
