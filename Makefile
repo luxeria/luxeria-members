@@ -3,10 +3,11 @@ DBNAME=members
 DB=$(DBNAME).db
 CSV=$(DBNAME)_primary_only.csv
 JSON=$(DBNAME).json
+WIKI=$(DBNAME).wiki
 TEX=$(DBNAME).tex
 PDF=$(DBNAME).pdf
 
-ALL=$(DB) $(CSV) $(JSON) $(TEX) $(PDF)
+ALL=$(DB) $(CSV) $(JSON) $(TEX) $(PDF) $(WIKI)
 
 db: $(DB)
 $(DB): structure.sql members.sql
@@ -19,6 +20,10 @@ $(CSV): $(DB)
 json: $(JSON)
 $(JSON): $(DB)
 	python scripts/create_json.py $(DB) >$@
+
+wiki: $(WIKI)
+$(WIKI): $(JSON)
+	python tools/pyratemp_tool.py -f $(JSON) scripts/create_dokuwiki.tmpl >$@
 
 tex: $(TEX)
 $(TEX): $(JSON)

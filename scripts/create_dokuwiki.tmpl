@@ -1,0 +1,43 @@
+<!--(set_escape)-->
+    None
+<!--(end)-->
+
+====== Luxeria Vereinsmitglieder ======
+
+<!--(for member in members)-->
+===== @!member['lastname']!@  @!member['firstname']!@ =====
+
+^ {{ photo@!member['memberid']!@.jpg?nolink&100 |}} ^ Status | <nowiki>
+    @!member['status']!@
+    <!--(if member['function'])-->
+        (@!member['function']!@)
+    <!--(end)-->
+ </nowiki>|
+| ::: ^ Vorname    | @!member['firstname']!@ |
+| ::: ^ Nachname    | @!member['lastname']!@ |
+| ::: ^ Spitzname    | @!default("member['nickname']", "--")!@ |
+^ E-Mail | <nowiki>
+    <!--(for email in member['email'])-->
+        </nowiki><@!email['mail']!@> \\ <nowiki>
+    <!--(end)-->
+</nowiki>||
+    <!--(if member['website'])-->
+^ Webseite | <nowiki>
+        <!--(for website in member['website'])-->
+        </nowiki>@!website['website']!@ \\ <nowiki>
+        <!--(end)-->
+</nowiki>||
+    <!--(end)-->
+^ Telefon | <nowiki>
+    <!--(for phone in member['phone'])-->
+        </nowiki>☎ @!phone['phonenr']!@ \\ <nowiki>
+    <!--(end)-->
+</nowiki>||<nowiki>
+    $!setvar("last_address", "len(member['address'])-1")!$
+    <!--(for i, address in enumerate(member['address']))-->
+    </nowiki>
+^ <!--(if i>0)-->:::<!--(else)-->Addresse<!--(end)--> | @!address['address']!@ | @!address['zipcode']!@ @!address['city']!@ |<nowiki>
+    <!--(end)-->
+</nowiki>
+
+<!--(end)-->
